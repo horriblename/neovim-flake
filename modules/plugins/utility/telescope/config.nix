@@ -6,9 +6,8 @@
 }: let
   inherit (lib.modules) mkIf mkMerge;
   inherit (lib.nvim.binds) addDescriptionsToMappings mkSetBinding;
-  inherit (lib.nvim.dag) entryAnywhere;
+  inherit (lib.strings) optionalString;
   inherit (lib.nvim.binds) pushDownDefault;
-  inherit (lib.nvim.lua) toLuaObject;
 
   cfg = config.vim.telescope;
   self = import ./telescope.nix {inherit pkgs lib;};
@@ -17,10 +16,24 @@
   mappings = addDescriptionsToMappings cfg.mappings mappingDefinitions;
 in {
   config = mkIf cfg.enable {
-    vim.startPlugins = [
-      "telescope"
-      "plenary-nvim"
-    ];
+    vim.startPlugins = ["plenary-nvim"];
+
+    vim.lazy.plugins = {
+      telescope = {
+        package = "telescope";
+        setupModule = "telescope";
+        inherit (cfg) setupOpts;
+        # FIXME: how do I deal with extensions? set all as deps?
+        after = ''
+          local telescope = require("telescope")
+          ${optionalString config.vim.ui.noice.enable "telescope.load_extension('noice')"}
+          ${optionalString config.vim.notify.nvim-notify.enable "telescope.load_extension('notify')"}
+          ${optionalString config.vim.projects.project-nvim.enable "telescope.load_extension('projects')"}
+        '';
+
+        cmd = ["Telescope"];
+      };
+    };
 
     vim.maps.normal = mkMerge [
       (mkSetBinding mappings.findFiles "<cmd> Telescope find_files<CR>")
@@ -64,28 +77,5 @@ in {
       "<leader>fv" = "Telescope Git";
       "<leader>fvc" = "Commits";
     };
-
-    vim.pluginRC.telescope = entryAnywhere ''
-      local telescope = require('telescope')
-      telescope.setup(${toLuaObject cfg.setupOpts})
-
-      ${
-        if config.vim.ui.noice.enable
-        then "telescope.load_extension('noice')"
-        else ""
-      }
-
-      ${
-        if config.vim.notify.nvim-notify.enable
-        then "telescope.load_extension('notify')"
-        else ""
-      }
-
-      ${
-        if config.vim.projects.project-nvim.enable
-        then "telescope.load_extension('projects')"
-        else ""
-      }
-    '';
   };
 }
