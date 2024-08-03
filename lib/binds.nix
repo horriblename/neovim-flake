@@ -3,6 +3,7 @@
   inherit (lib.modules) mkIf mkDefault;
   inherit (lib.types) nullOr str;
   inherit (lib.attrsets) isAttrs mapAttrs;
+  inherit (lib.generators) mkLuaInline;
 
   mkLuaBinding = mode: key: action: desc:
     mkIf (key != null) {
@@ -99,21 +100,15 @@
       inherit mode lhs rhs desc;
     };
 
-    # Usage:
-    #
-    # ```
-    # vim.lazy.plugins = {
-    #   telescope = {
-    #     # ...
-    #     keys = builtins.filter ({lhs, ...}: lhs != null) [
-    #       mkSetLznBinding mapping ":Telescope<CR>"
-    #     ];
-    #   }
-    # }
-    # ```
     mkSetLznBinding = binding: action: {
       lhs = binding.value;
       rhs = action;
+      desc = binding.description;
+    };
+
+    mkSetLuaLznBinding = binding: action: {
+      lhs = binding.value;
+      rhs = mkLuaInline "function() ${action} end";
       desc = binding.description;
     };
   };
