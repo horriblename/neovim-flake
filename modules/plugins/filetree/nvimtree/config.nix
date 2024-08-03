@@ -13,6 +13,10 @@
 
   cfg = config.vim.filetree.nvimTree;
   self = import ./nvimtree.nix {inherit pkgs lib;};
+  mkNormalBinding = lhs: rhs: desc: {
+    inherit lhs rhs desc;
+    mode = ["n"];
+  };
   inherit (self.options.vim.filetree.nvimTree) mappings;
 in {
   config = mkIf cfg.enable {
