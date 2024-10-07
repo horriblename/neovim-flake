@@ -204,6 +204,38 @@
         "type": "github"
       }
     },
+    "plugin-care-cmp": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726153673,
+        "narHash": "sha256-tRZdGMxkmI9uWf9AjctiQPjKcEFAfkCHhhxz4D2x7EE=",
+        "owner": "max397574",
+        "repo": "care-cmp",
+        "rev": "72cbb457e2ff246fd672d524270effe46f92ce4f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "max397574",
+        "repo": "care-cmp",
+        "type": "github"
+      }
+    },
+    "plugin-care-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726510764,
+        "narHash": "sha256-W5dNXdTgwSNW8O6dR5SSsk444H0NDFpA2rbNOnPB4sw=",
+        "owner": "max397574",
+        "repo": "care.nvim",
+        "rev": "800741c255939c0f345239662ec268557ac3eefa",
+        "type": "github"
+      },
+      "original": {
+        "owner": "max397574",
+        "repo": "care.nvim",
+        "type": "github"
+      }
+    },
     "plugin-catppuccin": {
       "flake": false,
       "locked": {
@@ -1836,6 +1868,8 @@
         "plugin-alpha-nvim": "plugin-alpha-nvim",
         "plugin-base16": "plugin-base16",
         "plugin-bufdelete-nvim": "plugin-bufdelete-nvim",
+        "plugin-care-cmp": "plugin-care-cmp",
+        "plugin-care-nvim": "plugin-care-nvim",
         "plugin-catppuccin": "plugin-catppuccin",
         "plugin-ccc": "plugin-ccc",
         "plugin-cellular-automaton": "plugin-cellular-automaton",

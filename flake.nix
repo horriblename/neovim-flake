@@ -292,6 +292,16 @@
       flake = false;
     };
 
+    plugin-care-nvim = {
+      url = "github:max397574/care.nvim";
+      flake = false;
+    };
+
+    plugin-care-cmp = {
+      url = "github:max397574/care-cmp";
+      flake = false;
+    };
+
     # snippets
     plugin-luasnip = {
       url = "github:L3MON4D3/LuaSnip";
