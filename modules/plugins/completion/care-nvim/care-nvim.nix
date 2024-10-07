@@ -1,7 +1,8 @@
 {lib, ...}: let
-  inherit (lib.options) mkEnableOption mkOption either bool str nullOr int literalMD;
-  inherit (lib.types) attrsOf submodule;
+  inherit (lib.options) mkEnableOption mkOption literalMD;
+  inherit (lib.types) attrsOf submodule either bool str nullOr int;
   inherit (lib.nvim.types) mkPluginSetupOption;
+  inherit (lib.nvim.binds) mkMappingOption;
 
   sourceConfig = submodule {
     options = {
@@ -51,6 +52,16 @@ in {
           sources = mkOption {
             type = attrsOf sourceConfig;
           };
+        };
+
+        mappings = {
+          complete = mkMappingOption "Complete [care.nvim]" "<C-Space>";
+          confirm = mkMappingOption "Confirm [care.nvim]" "<CR>";
+          next = mkMappingOption "Next item [care.nvim]" "<Tab>";
+          previous = mkMappingOption "Previous item [care.nvim]" "<S-Tab>";
+          close = mkMappingOption "Close [care.nvim]" "<C-e>";
+          scrollDocsUp = mkMappingOption "Scroll docs up [care.nvim]" "<C-d>";
+          scrollDocsDown = mkMappingOption "Scroll docs down [care.nvim]" "<C-f>";
         };
       };
     };

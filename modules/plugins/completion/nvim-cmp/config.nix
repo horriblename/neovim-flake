@@ -12,6 +12,7 @@
   inherit (builtins) attrNames;
 
   cfg = config.vim.autocomplete.nvim-cmp;
+  careCfg = config.vim.autocomplete.care-nvim;
   luasnipEnable = config.vim.snippets.luasnip.enable;
 
   self = import ./nvim-cmp.nix {inherit lib config;};
@@ -44,7 +45,7 @@ in {
         formatting.format = cfg.format;
       };
 
-      pluginRC.nvim-cmp = mkIf cfg.enable (entryAfter ["autopairs" "luasnip"] ''
+      pluginRC.nvim-cmp = mkIf (cfg.enable && !careCfg.enable) (entryAfter ["autopairs" "luasnip"] ''
         local luasnip = require("luasnip")
         local cmp = require("cmp")
         cmp.setup(${toLuaObject cfg.setupOpts})
