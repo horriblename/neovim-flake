@@ -93,6 +93,9 @@ everyone.
 - Add dap-go for better dap configurations
 - Make noice.nvim customizable
 - Standardize border style options and add custom borders
+- Remove `vim.disableDefaultRuntimePaths` in wrapper options.
+  - As nvf uses `$NVIM_APP_NAME` as of recent changes, we can safely assume any
+    configuration in `$XDG_CONFIG_HOME/nvf` is intentional.
 
 [rust-tools.nvim]: https://github.com/simrat39/rust-tools.nvim
 [rustaceanvim]: https://github.com/mrcjkb/rustaceanvim
@@ -263,9 +266,16 @@ everyone.
 - Add LSP and Treesitter support for R under `vim.languages.R`.
 - Add Otter support under `vim.lsp.otter` and an assert to prevent conflict with
   ccc
+- Add LSP, diagnostics, formatter and Treesitter support for Kotlin under
+  `vim.languages.kotlin`
 
 [Bloxx12](https://github.com/Bloxx12)
 
 - Add support for [base16 theming](https://github.com/RRethy/base16-nvim) under
   `vim.theme`
 - Fix internal breakage in `elixir-tools` setup.
+
+[ksonj](https://github.com/ksonj):
+
+- Add LSP support for Scala via
+  [nvim-metals](https://github.com/scalameta/nvim-metals)
